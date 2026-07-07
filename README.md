@@ -12,7 +12,7 @@ Place buildings on the isometric grid, then slide them with WASD/arrows to merge
 
 | Menu | Build mode | Inspection |
 |------|------------|------------|
-| ![](docs/screenshot-1.png) | ![](docs/screenshot-2.png) | ![](docs/screenshot-3.png) |
+| ![](docs/screenshots/screenshot-1.png) | ![](docs/screenshots/screenshot-2.png) | ![](docs/screenshots/screenshot-3.png) |
 
 ### Controls
 
