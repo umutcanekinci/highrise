@@ -87,7 +87,11 @@ class Game(GameEventsMixin, GamePersistenceMixin, Application):
         self.menu_controllers: dict = {}
 
     def run(self) -> None:
-        self.splash.run(self.window, self.clock, self._fps)
+        # SplashScreen runs its own loop with direct pygame.display.update()
+        # calls, bypassing Application._present()'s scale step -- draw it
+        # straight onto the real display surface rather than the offscreen
+        # logical canvas, or it would never actually reach the screen.
+        self.splash.run(self.display_surface, self.clock, self._fps)
         self.mouse.set_cursor_visible(False)
         self.mouse.set_cursor_image(StateObject(pos=(0, 0), size=self.cursor_size, image_path=self.assets.image_path("cursor")))
 
