@@ -90,3 +90,54 @@ jobs:
           files: artifacts/*.zip
           generate_release_notes: true
           fail_on_unmatched_files: true
+
+  publish-itch:
+    name: Publish to itch.io
+    needs: build
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    steps:
+      - name: Download all build artifacts
+        uses: actions/download-artifact@v8
+        with:
+          path: artifacts
+          merge-multiple: true
+
+      # butler diffs/patches at the file level, so unpack each zip rather than
+      # pushing it as a single opaque file.
+      - name: Unpack per-OS bundles
+        run: |
+          mkdir -p itch/windows itch/linux itch/osx
+          unzip -q artifacts/highrise-windows.zip -d itch/windows
+          unzip -q artifacts/highrise-linux.zip -d itch/linux
+          unzip -q artifacts/highrise-macos.zip -d itch/osx
+
+      - name: Push Windows build
+        uses: yeslayla/butler-publish-itchio-action@v1.2.0
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
+          ITCH_USER: umutcanekinci
+          ITCH_GAME: highrise
+          CHANNEL: windows
+          VERSION: ${{ github.ref_name }}
+          PACKAGE: itch/windows
+
+      - name: Push Linux build
+        uses: yeslayla/butler-publish-itchio-action@v1.2.0
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
+          ITCH_USER: umutcanekinci
+          ITCH_GAME: highrise
+          CHANNEL: linux
+          VERSION: ${{ github.ref_name }}
+          PACKAGE: itch/linux
+
+      - name: Push macOS build
+        uses: yeslayla/butler-publish-itchio-action@v1.2.0
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
+          ITCH_USER: umutcanekinci
+          ITCH_GAME: highrise
+          CHANNEL: osx
+          VERSION: ${{ github.ref_name }}
+          PACKAGE: itch/osx
