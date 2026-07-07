@@ -3,11 +3,11 @@ fonts:
     kenvector_future:      {folder: , name: "Kenney Future"}
     kenvector_future_thin: {folder: , name: "Kenney Future Narrow"}
 images:
-    cursor:         { folder: gui/others, name: cursor }
-    profile_image:  { folder: gui/others, name: cv }
+    cursor:         { folder: gui/developer, name: cursor }
+    profile_image:  { folder: gui/developer, name: cv }
     grey_panel:     { folder: gui/panels, name: grey }
-    github_icon:    { folder: gui/others, name: github }
-    linkedin_icon:  { folder: gui/others, name: linkedin }
+    github_icon:    { folder: gui/developer, name: github }
+    linkedin_icon:  { folder: gui/developer, name: linkedin }
 
     blue_button:    {folder: gui/Blue/Default, name: button_rectangle_depth_gloss}
     green_button:   {folder: gui/Green/Default, name: button_rectangle_depth_gloss}
@@ -20,12 +20,12 @@ images:
     cross_white:    {folder: gui/Grey/Default, name: icon_outline_cross}
     cross_grey:     {folder: gui/Grey/Default, name: icon_outline_cross}
     
-    minus_icon:     {folder: gui/others, name: minus}
-    plus_icon:      {folder: gui/others, name: plus}
-    info_icon:      {folder: gui/others, name: info}
+    minus_icon:     {folder: gui/icons, name: minus}
+    plus_icon:      {folder: gui/icons, name: plus}
+    info_icon:      {folder: gui/icons, name: info}
 
-    pygame_logo:    {folder: others, name: pygame_logo}
-    kenney_logo:    {folder: others, name: kenney_logo}
+    pygame_logo:    {folder: branding, name: pygame_logo}
+    kenney_logo:    {folder: branding, name: kenney_logo}
 
 sounds:
     bg:             {folder: "", name: music, extension: mp3}

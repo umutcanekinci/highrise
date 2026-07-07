@@ -12,7 +12,7 @@ Place buildings on the isometric grid, then slide them with WASD/arrows to merge
 
 | Menu | Build mode | Inspection |
 |------|------------|------------|
-| ![](docs/screenshots/screenshot-1.png) | ![](docs/screenshots/screenshot-2.png) | ![](docs/screenshots/screenshot-3.png) |
+| ![](docs/screenshots/01_main_menu.png) | ![](docs/screenshots/02_build_mode.png) | ![](docs/screenshots/03_inspection.png) |
 
 ### Controls
 
@@ -91,6 +91,7 @@ src/app/game.py        Game class — wires Application + Events + Persistence m
 src/domain/            Pure data (Player)
 src/gameplay/          Tilemap, tile selector, buildings, clouds
 src/ui/                Info panel and UI helpers
+src/util/              Frozen-build resource path resolution
 src/pygame_core/       Engine submodule (Application, PanelLoaderExt, Database, ...)
 config/                YAML: assets, panels, settings
 databases/             SQLite save file (auto-created on first run)
