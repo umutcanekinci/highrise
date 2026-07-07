@@ -7,5 +7,11 @@ dependencies = [
     "pyyaml",
 ]
 
+[dependency-groups]
+# Tooling for producing distributable builds (see highrise.spec / CI).
+build = [
+    "pyinstaller>=6.0",
+]
+
 [tool.uv.sources]
 pygame-core = { path = "src/pygame_core", editable = true }

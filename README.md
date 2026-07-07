@@ -26,6 +26,18 @@ Place buildings on the isometric grid, then slide them with WASD/arrows to merge
 | Advance to next age | NEXT AGE button |
 | Inspect / sell building | Click a building in inspection mode |
 
+## Download
+
+Grab a ready-to-play build for your OS from the [latest release](https://github.com/umutcanekinci/highrise/releases/latest) — no Python required. Unzip and run:
+
+| OS | Run |
+|----|-----|
+| Windows | Extract `highrise-windows.zip`, run `highrise.exe` |
+| macOS | Extract `highrise-macos.zip`, open `Highrise.app` |
+| Linux | Extract `highrise-linux.zip`, run `./highrise/highrise` |
+
+> macOS Gatekeeper: the app is unsigned, so the first launch needs **right-click → Open** (or `xattr -dr com.apple.quarantine Highrise.app`).
+
 ## Requirements
 
 - Python 3.12+
@@ -44,6 +56,28 @@ uv run python __main__.py
 If you forgot `--recurse-submodules`: `git submodule update --init`.
 
 Without `uv`: `pip install .` then `python __main__.py`.
+
+## Building a standalone bundle
+
+Builds are produced by [PyInstaller](https://pyinstaller.org/) from `highrise.spec`, which bundles `assets/` and `config/` alongside the executable (onedir). To build locally for your current OS:
+
+```bash
+uv sync --group build
+uv run pyinstaller highrise.spec --noconfirm
+```
+
+The result lands in `dist/highrise/` (`dist/Highrise.app` on macOS).
+
+### Cutting a release
+
+Per-OS bundles for Windows, macOS, and Linux are built and published automatically by [`.github/workflows/release.yml`](.github/workflows/release.yml) when a version tag is pushed:
+
+```bash
+git tag v0.1.0
+git push origin v0.1.0
+```
+
+The workflow builds on each OS, zips the bundle, and attaches all three to a GitHub Release (with auto-generated notes). Use the workflow's **Run workflow** button to test a build without publishing.
 
 ## Project layout
 
