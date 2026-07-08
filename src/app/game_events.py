@@ -63,7 +63,23 @@ class GameEventsMixin:
                 self.open_panel(dest)
 
     def handle_display_settings_events(self, event: pygame.event.Event) -> None:
-        if self._activate(self.panel_manager["display_settings"]["display_back_button"], event):
+        panel = self.panel_manager["display_settings"]
+
+        if panel["window_mode_minus_button"].is_clicked(event, self.mouse.position):
+            self.cycle_window_mode(-1)
+            self.set_window_mode_label()
+            self.set_window_size_label()
+        elif panel["window_mode_plus_button"].is_clicked(event, self.mouse.position):
+            self.cycle_window_mode(1)
+            self.set_window_mode_label()
+            self.set_window_size_label()
+        elif panel["window_size_minus_button"].is_clicked(event, self.mouse.position):
+            self.cycle_resolution(-1)
+            self.set_window_size_label()
+        elif panel["window_size_plus_button"].is_clicked(event, self.mouse.position):
+            self.cycle_resolution(1)
+            self.set_window_size_label()
+        elif self._activate(panel["display_back_button"], event):
             self.open_panel("settings")
 
     def handle_audio_settings_events(self, event: pygame.event.Event) -> None:

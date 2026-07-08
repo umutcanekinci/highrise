@@ -24,6 +24,12 @@ from pygame_core import panel_factory
 from pygame_core.ui_widgets.menu_controller import MenuController
 from ui.info_panel import InfoPanel
 
+WINDOW_MODE_LABELS = {
+    "fullscreen": "FULLSCREEN",
+    "borderless": "BORDERLESS",
+    "windowed":   "WINDOWED",
+}
+
 class Game(GameEventsMixin, GamePersistenceMixin, Application):
 
     def __init__(self) -> None:
@@ -35,6 +41,12 @@ class Game(GameEventsMixin, GamePersistenceMixin, Application):
         ui       = self.settings["ui"]
 
         self.cursor_size = tuple(ui["cursor_size"])
+
+        # Every panel position in config/panels.yaml is an absolute pixel
+        # coordinate authored against this size -- set before super().__init__()
+        # since on_canvas_resized() (see below) can fire during construction
+        # (full_screen() there triggers the first _rebuild_window_surface()).
+        self._authored_size = tuple(window["size"])
 
         super().__init__(tuple(window["size"]), window["title"], window["fps"])
 
@@ -86,6 +98,32 @@ class Game(GameEventsMixin, GamePersistenceMixin, Application):
         }
         self.menu_controllers: dict = {}
 
+    def on_canvas_resized(self, new_size: tuple[int, int]) -> None:
+        # Every panel in config/panels.yaml is positioned with absolute pixel
+        # coordinates authored against self._authored_size (1920x1080) -- the
+        # old (pre dynamic-canvas) engine always rendered internally at that
+        # fixed size and let _present() bitmap-stretch it onto whatever the
+        # real window was, which is what gave the UI "free" scaling on
+        # resize. The new engine instead makes self.window track the real
+        # display exactly by default, so without this override the UI would
+        # stay pinned at its authored pixel positions and visibly shrink
+        # into a corner as the real window gets smaller.
+        #
+        # Recreate the old behavior with render_scale: keep self.window
+        # pinned at >= self._authored_size on both axes (never smaller, so
+        # nothing authored near the edges gets clipped) regardless of the
+        # real window/display size, and let _present()'s existing
+        # non-uniform pygame.transform.scale() do the same bitmap stretch
+        # the old engine did. max(), not min(), so a non-16:9 pick (e.g. a
+        # 16:10 resolution) only ever gains extra canvas on one axis rather
+        # than losing it on the other.
+        display_w, display_h = self.display_surface.get_size()
+        target_scale = max(
+            self._authored_size[0] / display_w, self._authored_size[1] / display_h
+        )
+        if abs(target_scale - self.render_scale) > 1e-9:
+            self.set_render_scale(target_scale)  # re-enters this method with the corrected size
+
     def run(self) -> None:
         # SplashScreen runs its own loop with direct pygame.display.update()
         # calls, bypassing Application._present()'s scale step -- draw it
@@ -106,6 +144,8 @@ class Game(GameEventsMixin, GamePersistenceMixin, Application):
         self.info_panel.close()
         self.set_music_label(self.audio.music_volume())
         self.set_sfx_label(self.audio.sfx_volume())
+        self.set_window_size_label()
+        self.set_window_mode_label()
         self.audio.play_music(str(self.background_music_sound_path))
 
         super().run()
@@ -322,3 +362,12 @@ class Game(GameEventsMixin, GamePersistenceMixin, Application):
     def _set_volume_label(volume: float, text_obj) -> None:
         volume = max(0.0, min(1.0, volume))
         text_obj.set_text("%" + str(round(volume * 100)))
+
+    def set_window_size_label(self) -> None:
+        w, h = self.resolution
+        self.panel_manager["display_settings"]["window_size_entry_text"].set_text(f"{w}x{h}")
+
+    def set_window_mode_label(self) -> None:
+        self.panel_manager["display_settings"]["window_mode_entry_text"].set_text(
+            WINDOW_MODE_LABELS[self._window_mode]
+        )

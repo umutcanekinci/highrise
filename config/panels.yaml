@@ -268,7 +268,7 @@ panels:
   display_settings:
     objects:
       display_settings_title:
-        position: [740, 410]
+        position: [740, 275]
         size: [440, 70]
         asset: blue_button
       display_settings_title_text:
@@ -280,19 +280,63 @@ panels:
         color: white
         position: [CENTER, CENTER]
       display_settings_panel:
-        position: [740, 470]
-        size: [440, 200]
+        position: [740, 335]
+        size: [440, 470]
         extends: menu_panel
-      coming_soon_text:
-        type: text
-        font: kenvector_future
+
+      window_mode_text:
+        extends: settings_text
+        position: [CENTER, 365]
+        text: "WINDOW MODE"
+      window_mode_minus_button:
+        extends: volume_button
+        position: [840, 415]
+      window_mode_plus_button:
+        extends: volume_button
+        position: [1054, 415]
+      window_mode_entry:
+        extends: volume_entry
+        position: [885, 415]
+      window_mode_entry_text:
+        extends: volume_entry_text
+        parent: window_mode_entry
+        font_size: 16
+        text: "FULLSCREEN"
+      window_mode_minus_icon:
+        extends: minus_icon_template
+        position: [850, 425]
+      window_mode_plus_icon:
+        extends: plus_icon_template
+        position: [1064, 425]
+
+      window_size_text:
+        extends: settings_text
+        position: [CENTER, 535]
+        text: "WINDOW SIZE"
+      window_size_minus_button:
+        extends: volume_button
+        position: [840, 585]
+      window_size_plus_button:
+        extends: volume_button
+        position: [1054, 585]
+      window_size_entry:
+        extends: volume_entry
+        position: [885, 585]
+      window_size_entry_text:
+        extends: volume_entry_text
+        parent: window_size_entry
         font_size: 18
-        color: Green
-        position: [CENTER, 500]
-        text: "THIS PAGE WILL COMING SOON..."
+        text: "1920x1080"
+      window_size_minus_icon:
+        extends: minus_icon_template
+        position: [850, 595]
+      window_size_plus_icon:
+        extends: plus_icon_template
+        position: [1064, 595]
+
       display_back_button:
         extends: go_back_btn
-        position: [810, 580]
+        position: [810, 705]
       display_back_button_text:
         extends: go_back_btn_text
         parent: display_back_button
