@@ -1,13 +1,15 @@
 name: CI
 
-# Runs the pygame_core engine's own test suite on every push/PR -- it's
-# vendored as a submodule but nothing previously exercised it here.
-# Deliberately separate from release.yml, which only builds/publishes on
-# version tags.
+# Runs on GitHub's servers AFTER code arrives there:
+#   * every push to any branch
+#   * every pull request targeting main
+# Runs the pygame_core engine's own test suite -- it's vendored as a
+# submodule but nothing previously exercised it here. Deliberately separate
+# from release.yml, which only builds/publishes on version tags.
 on:
   push:
-    branches: ["main"]
   pull_request:
+    branches: [main]
 
 concurrency:
   group: ci-${{ github.ref }}
@@ -27,14 +29,11 @@ jobs:
         uses: astral-sh/setup-uv@v8.2.0
         with:
           python-version: "3.12"
-
-      - name: Install pygame_core (incl. dev group)
-        working-directory: src/pygame_core
-        run: uv sync --group dev
+          enable-cache: true
 
       - name: Run pytest
         working-directory: src/pygame_core
         env:
           SDL_VIDEODRIVER: dummy
           SDL_AUDIODRIVER: dummy
-        run: uv run pytest
+        run: uv run --group dev pytest -q
