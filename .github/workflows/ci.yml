@@ -43,6 +43,8 @@ jobs:
   app-tests:
     name: App game-logic test suite
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # only this job pushes the regenerated coverage badge
     steps:
       - name: Checkout (with pygame_core submodule)
         uses: actions/checkout@v7
@@ -55,11 +57,24 @@ jobs:
           python-version: "3.12"
           enable-cache: true
 
-      - name: Run pytest
+      - name: Run pytest with coverage
         env:
           SDL_VIDEODRIVER: dummy
           SDL_AUDIODRIVER: dummy
-        run: uv run --group dev pytest -q
+        run: uv run --group dev pytest -q --cov --cov-report=json --cov-report=term
+
+      # Only on a push to main -- PRs (esp. from forks) may lack push access,
+      # and there's no reason to commit on every branch.
+      - name: Update coverage badge
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: uv run python scripts/make_coverage_badge.py
+
+      - name: Commit updated badge
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update coverage badge [skip ci]"
+          file_pattern: .github/badges/coverage.json
 
   app-smoke-test:
     name: App smoke test

@@ -54,6 +54,9 @@ htmlcov/
 .cache
 nosetests.xml
 coverage.xml
+# Intermediate `coverage json` output at repo root only -- .github/badges/
+# coverage.json (the derived badge file) is tracked on purpose.
+/coverage.json
 *.cover
 *.py,cover
 .hypothesis/

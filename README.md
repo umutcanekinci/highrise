@@ -1,5 +1,7 @@
 # Highrise
 
+![Coverage](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/umutcanekinci/highrise/main/.github/badges/coverage.json)
+
 An isometric city-builder where same-level buildings merge `2048`-style. Build, merge, expand, and advance through ages — Python + [pygame-ce](https://github.com/pygame-community/pygame-ce).
 
 ![Gameplay](docs/preview.gif)
