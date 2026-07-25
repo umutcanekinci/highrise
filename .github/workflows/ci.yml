@@ -3,9 +3,10 @@ name: CI
 # Runs on GitHub's servers AFTER code arrives there:
 #   * every push to any branch
 #   * every pull request targeting main
-# Runs the pygame_core engine's own test suite -- it's vendored as a
-# submodule but nothing previously exercised it here. Deliberately separate
-# from release.yml, which only builds/publishes on version tags.
+# Runs the pygame_core engine's own test suite (vendored as a submodule, but
+# nothing previously exercised it here) plus a smoke test that the app
+# itself still boots headlessly. Deliberately separate from release.yml,
+# which only builds/publishes on version tags.
 on:
   push:
   pull_request:
@@ -37,3 +38,24 @@ jobs:
           SDL_VIDEODRIVER: dummy
           SDL_AUDIODRIVER: dummy
         run: uv run --group dev pytest -q
+
+  app-smoke-test:
+    name: App smoke test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (with pygame_core submodule)
+        uses: actions/checkout@v7
+        with:
+          submodules: recursive
+
+      - name: Set up uv + Python
+        uses: astral-sh/setup-uv@v8.2.0
+        with:
+          python-version: "3.12"
+          enable-cache: true
+
+      - name: Boot the game headlessly on every panel
+        env:
+          SDL_VIDEODRIVER: dummy
+          SDL_AUDIODRIVER: dummy
+        run: uv run python scripts/smoke_test.py
