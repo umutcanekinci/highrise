@@ -125,11 +125,11 @@ class Game(GameEventsMixin, GamePersistenceMixin, Application):
             self.set_render_scale(target_scale)  # re-enters this method with the corrected size
 
     def run(self) -> None:
-        # SplashScreen runs its own loop with direct pygame.display.update()
-        # calls, bypassing Application._present()'s scale step -- draw it
-        # straight onto the real display surface rather than the offscreen
-        # logical canvas, or it would never actually reach the screen.
-        self.splash.run(self.display_surface, self.clock, self._fps)
+        # Application.run() would call this itself, but this project needs
+        # menu/panel/audio setup interleaved between the splash and the
+        # main loop, so it keeps its own run() override for that -- just
+        # delegating the splash part instead of duplicating it.
+        self.show_splash()
         self.mouse.set_cursor_visible(False)
         self.mouse.set_cursor_image(StateObject(pos=(0, 0), size=self.cursor_size, image_path=self.assets.image_path("cursor")))
 
