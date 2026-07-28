@@ -1,5 +1,5 @@
-[submodule "src/pygame_core"]
-	path = src/pygame_core
-	url = https://github.com/umutcanekinci/pygame-core.git
+[submodule "src/pygamine"]
+	path = src/pygamine
+	url = https://github.com/umutcanekinci/pygamine.git
 	branch = main
 	update = merge

@@ -10,7 +10,7 @@ uv sync             # preferred — installs the locked dep set
 # or for users without uv:
 pip install .       # installs pygame-ce + pyyaml from pyproject.toml
 
-# Run the game (__main__.py adds src/ and src/pygame_core/ to sys.path)
+# Run the game (__main__.py adds src/ and src/pygamine/ to sys.path)
 python __main__.py
 ```
 
@@ -20,11 +20,11 @@ There are no automated tests or lint configurations in this project.
 
 ### Entry Point and Game Class
 
-`__main__.py` calls `Game().run()`. `src/game.py` defines the `Game` class, which inherits from `pygame_core.Application` and three mixins: `GameEventsMixin` (`src/game_events.py`), `GamePersistenceMixin` (`src/game_persistence.py`), and `GameAudioMixin` (`src/game_audio.py`). These mixins handle event routing, SQLite save/load, and sound management respectively.
+`__main__.py` calls `Game().run()`. `src/game.py` defines the `Game` class, which inherits from `pygamine.Application` and three mixins: `GameEventsMixin` (`src/game_events.py`), `GamePersistenceMixin` (`src/game_persistence.py`), and `GameAudioMixin` (`src/game_audio.py`). These mixins handle event routing, SQLite save/load, and sound management respectively.
 
-### pygame_core — Shared Utility Package
+### pygamine — Shared Utility Package
 
-`src/pygame_core/` is a standalone, editable-installed package shared across multiple game projects. It provides:
+`src/pygamine/` is a standalone, editable-installed package shared across multiple game projects. It provides:
 - `Application` — base game loop class
 - `AssetManager` + `ImagePath`/`FontPath`/`SoundPath` — asset loading/caching
 - `PanelManager` + `PanelLoaderExt` — screen/panel management driven by `config/panels.yaml`
@@ -32,16 +32,16 @@ There are no automated tests or lint configurations in this project.
 - `Database` — SQLite wrapper (saves to `databases/database.db`)
 - `MouseInteractive` mixin — mouse input for game objects
 
-**Changes to `src/pygame_core/` affect all games that depend on it.**
+**Changes to `src/pygamine/` affect all games that depend on it.**
 
 ### Entity Hierarchy
 
 ```
-pygame_core.GameObject
+pygamine.GameObject
 ├── StateObject (src/state_object.py) + MouseInteractive
 │   ├── Building  (src/building.py)
 │   └── Cloud     (src/cloud.py)
-└── TextObject, InputBox  (pygame_core ui_widgets)
+└── TextObject, InputBox  (pygamine ui_widgets)
 
 GuiObject (src/ext/guiobject.py) — extends StateObject for UI elements
 Button, ButtonText (src/button.py) — extend GuiObject

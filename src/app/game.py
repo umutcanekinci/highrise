@@ -11,17 +11,17 @@ from gameplay.buildings.building import Building, Buildings
 from gameplay.clouds.cloud_container import OneShotCloudAnimation, LoopingCloudAnimation
 from gameplay.tile_selector import TileSelector
 from gameplay.tilemap import Tilemap
-from pygame_core.application import Application
-from pygame_core.asset_manager import AssetManager
-from pygame_core.database import Database
-from pygame_core.panel_loader_ext import PanelLoaderExt
-from pygame_core.panel_manager import PanelManager
-from pygame_core.splash_screen import SplashScreen
-from pygame_core.ecs.components.transform import Transform
-from pygame_core.ecs.game_audio import GameAudio
-from pygame_core.ecs.state_object import StateObject
-from pygame_core import panel_factory
-from pygame_core.ui_widgets.menu_controller import MenuController
+from pygamine.application import Application
+from pygamine.asset_manager import AssetManager
+from pygamine.database import Database
+from pygamine.panel_loader_ext import PanelLoaderExt
+from pygamine.panel_manager import PanelManager
+from pygamine.splash_screen import SplashScreen
+from pygamine.ecs.components.transform import Transform
+from pygamine.ecs.game_audio import GameAudio
+from pygamine.ecs.state_object import StateObject
+from pygamine import panel_factory
+from pygamine.ui_widgets.menu_controller import MenuController
 from ui.info_panel import InfoPanel
 
 WINDOW_MODE_LABELS = {

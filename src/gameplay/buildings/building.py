@@ -1,13 +1,13 @@
 from dataclasses import dataclass
 from typing import Callable
 
-from pygame_core.asset_manager import AssetManager
-from pygame_core.ecs.sound_manager import SoundManager
+from pygamine.asset_manager import AssetManager
+from pygamine.ecs.sound_manager import SoundManager
 from pygame import Vector2
 from gameplay.tiles.tile import Tile
-from pygame_core.asset_path import ImagePath, SoundPath
-from pygame_core.ecs.state_object import StateObject
-from pygame_core.ecs.components.rigidbody2d import Rigidbody2D
+from pygamine.asset_path import ImagePath, SoundPath
+from pygamine.ecs.state_object import StateObject
+from pygamine.ecs.components.rigidbody2d import Rigidbody2D
 
 ages = ["wood", "rock", "sand", "stone"]
 

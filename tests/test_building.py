@@ -2,7 +2,7 @@ from pygame import Vector2
 
 from gameplay.buildings.building import Building, ages
 from gameplay.tiles.tile import Tile
-from pygame_core.asset_path import ImagePath
+from pygamine.asset_path import ImagePath
 
 
 def make_building(level=1, age_number=0, row=1, col=1) -> Building:

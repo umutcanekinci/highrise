@@ -95,7 +95,7 @@ version = "0.1.1"
 source = { virtual = "." }
 dependencies = [
     { name = "pygame-ce" },
-    { name = "pygame-core" },
+    { name = "pygamine" },
     { name = "pyyaml" },
 ]
 
@@ -111,7 +111,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "pygame-ce" },
-    { name = "pygame-core", editable = "src/pygame_core" },
+    { name = "pygamine", editable = "src/pygamine" },
     { name = "pyyaml" },
 ]
 
@@ -199,9 +199,9 @@ wheels = [
 ]
 
 [[package]]
-name = "pygame-core"
-version = "0.5.0"
-source = { editable = "src/pygame_core" }
+name = "pygamine"
+version = "0.6.0"
+source = { editable = "src/pygamine" }
 dependencies = [
     { name = "pygame-ce" },
     { name = "pytmx" },

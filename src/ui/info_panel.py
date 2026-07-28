@@ -1,5 +1,5 @@
-from pygame_core.image import load_image
-from pygame_core.ecs.game_object import GameObject
+from pygamine.image import load_image
+from pygamine.ecs.game_object import GameObject
 from gameplay.buildings.building import Building
 
 

@@ -5,7 +5,7 @@ requires-python = ">=3.12"
 dependencies = [
     "pygame-ce",
     "pyyaml",
-    "pygame-core",
+    "pygamine",
 ]
 
 [dependency-groups]
@@ -16,16 +16,16 @@ build = [
 dev = ["pytest>=8", "pytest-cov>=5"]
 
 [tool.uv.sources]
-pygame-core = { path = "src/pygame_core", editable = true }
+pygamine = { path = "src/pygamine", editable = true }
 
 [tool.pytest.ini_options]
-# Puts src/ + src/pygame_core on sys.path so tests can `import app.game` /
+# Puts src/ + src/pygamine on sys.path so tests can `import app.game` /
 # `import gameplay.*` etc. without per-file path hacks (mirrors __main__.py).
-pythonpath = ["src", "src/pygame_core"]
+pythonpath = ["src", "src/pygamine"]
 testpaths = ["tests"]
 
 [tool.coverage.run]
-# pygame_core is a vendored submodule with its own separate test suite
+# pygamine is a vendored submodule with its own separate test suite
 # (engine-tests in CI) -- the coverage badge should reflect only this app's
 # own code. Listed as explicit leaf directories rather than "src" itself:
 # coverage.py's static discovery of *unexecuted* files (needed so untested
