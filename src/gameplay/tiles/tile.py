@@ -2,11 +2,11 @@ from typing import override
 
 from pygame import Surface
 from pygame.draw import polygon
-from pygamine.asset_path import ImagePath
-from pygamine.image import load_image
+from pygamine import ImagePath
+from pygamine import load_image
 
-from pygamine.ecs.components.sprite_renderer2d import SpriteRenderer2D
-from pygamine.ecs.game_object import GameObject
+from pygamine import SpriteRenderer2D
+from pygamine import GameObject
 
 
 class Tile(GameObject):

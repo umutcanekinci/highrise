@@ -1,11 +1,11 @@
 import random
 
-from pygamine.image import load_image
-from pygamine.asset_path import ImagePath, AssetPath
-from pygamine.ecs.game_object_list import GameObjectList
-from pygamine.ecs.game_object import GameObject
-from pygamine.ecs.components.rigidbody2d import Rigidbody2D
-from pygamine.ecs.components.sprite_renderer2d import SpriteRenderer2D
+from pygamine import load_image
+from pygamine import ImagePath, AssetPath
+from pygamine import GameObjectList
+from pygamine import GameObject
+from pygamine import Rigidbody2D
+from pygamine import SpriteRenderer2D
 
 
 class Cloud(GameObject):

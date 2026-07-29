@@ -18,4 +18,4 @@ need to change.
 
 from __future__ import annotations
 
-from pygamine.paths import resource_root as resource_root, resource_path as resource_path
+from pygamine import resource_root as resource_root, resource_path as resource_path

@@ -1,7 +1,7 @@
 from gameplay.clouds.cloud import Cloud
-from pygamine.asset_path import ImagePath
-from pygamine.ecs.components.rigidbody2d import Rigidbody2D
-from pygamine.ecs.game_object_list import GameObjectList
+from pygamine import ImagePath
+from pygamine import Rigidbody2D
+from pygamine import GameObjectList
 
 
 class CloudContainer(GameObjectList):
