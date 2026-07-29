@@ -67,7 +67,7 @@ jobs:
       # and there's no reason to commit on every branch.
       - name: Update coverage badge
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: uv run python scripts/make_coverage_badge.py
+        run: uv run pygamine-coverage-badge
 
       - name: Commit updated badge
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
