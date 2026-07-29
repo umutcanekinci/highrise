@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import Callable
 
 from pygamine.asset_manager import AssetManager
-from pygamine.ecs.sound_manager import SoundManager
+from pygamine.ecs.game_audio import GameAudio
 from pygame import Vector2
 from gameplay.tiles.tile import Tile
 from pygamine.asset_path import ImagePath, SoundPath
@@ -109,7 +109,7 @@ class Buildings(list[Building]):
                     self.sort(key=lambda b: b.tile.column_number)
 
                     sound = self.assets.sound_path("merge")
-                    SoundManager.play_sound(1, sound)
+                    GameAudio.play_sfx(sound)
                 else:
                     if building.tile.selected and building.tile.rect == building.tile.selected_rect:
                         building.rect.topleft = (int(building.selected_position.x), int(building.selected_position.y))
