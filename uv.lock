@@ -200,7 +200,7 @@ wheels = [
 
 [[package]]
 name = "pygamine"
-version = "0.10.0"
+version = "0.11.0"
 source = { editable = "src/pygamine" }
 dependencies = [
     { name = "pygame-ce" },
@@ -219,6 +219,7 @@ requires-dist = [
 dev = [
     { name = "mypy", specifier = ">=1.13" },
     { name = "pytest", specifier = ">=8" },
+    { name = "pytest-cov", specifier = ">=5" },
     { name = "ruff", specifier = ">=0.8" },
     { name = "types-pyyaml" },
 ]
