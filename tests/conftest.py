@@ -15,7 +15,7 @@ os.environ.setdefault("SDL_AUDIODRIVER", "dummy")
 import pygame
 import pytest
 
-from pygamine.asset_manager import AssetManager
+from pygamine import AssetManager
 
 pygame.init()
 # Tile/Building load images via convert_alpha(), which raises without a

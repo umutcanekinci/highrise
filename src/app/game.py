@@ -20,7 +20,7 @@ from pygamine import SplashScreen
 from pygamine import Transform
 from pygamine import GameAudio
 from pygamine import StateObject
-from pygamine import panel_factory
+from pygamine import make_factory, make_text_factory, make_animated_factory
 from pygamine import MenuController
 from ui.info_panel import InfoPanel
 
@@ -157,9 +157,9 @@ class Game(GameEventsMixin, GamePersistenceMixin, Application):
         self.panel_manager.add_object("game", "buildings", self.buildings)
 
         loader = PanelLoaderExt(self.panel_manager, self.window_transform, self.assets)
-        loader.register("object", panel_factory.make_factory(self.assets), default=True)
-        loader.register("text", panel_factory.make_text_factory(self.assets))
-        loader.register("animated", panel_factory.make_animated_factory(self.assets))
+        loader.register("object", make_factory(self.assets), default=True)
+        loader.register("text", make_text_factory(self.assets))
+        loader.register("animated", make_animated_factory(self.assets))
         loader.load("config/panels.yaml")
 
         panel = self.panel_manager["game"]
