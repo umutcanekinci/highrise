@@ -14,7 +14,18 @@ pip install .       # installs pygame-ce + pyyaml from pyproject.toml
 python __main__.py
 ```
 
-There are no automated tests or lint configurations in this project.
+## Testing
+
+```bash
+uv run --group dev pytest tests/ -q                      # this app's own logic tests
+uv run --group dev pytest tests/ --cov --cov-report=term  # with coverage
+```
+
+No lint configuration in this project. Note: several paths in this file (`src/game.py`,
+`src/game_events.py`, `src/game_audio.py`, `src/building.py`, `src/cloud.py`, `src/tile.py`,
+`src/ext/guiobject.py`) are stale — the actual layout has since moved to `src/app/`,
+`src/domain/`, `src/gameplay/{buildings,clouds,tiles}/`, and `src/ui/` (see the test suite's
+imports for the current module paths).
 
 ## Architecture Overview
 
